@@ -48,7 +48,6 @@ export default function Home() {
             if (dbError) throw dbError
 
             // 2. Storage'dan dosyayı sil (URL'den dosya yolunu çıkartarak)
-            // Örnek URL: https://ikibkyntszqeujpyqrqx.supabase.co/storage/v1/object/public/blog_media/UUID/dosya.jpg
             const urlParts = mediaUrl.split('/blog_media/')
             if (urlParts.length > 1) {
                 const filePath = urlParts[1]
@@ -77,40 +76,48 @@ export default function Home() {
     }
 
     if (loading) {
-        return <main className="main-content"><p style={{ textAlign: 'center' }}>Yükleniyor...</p></main>
+        return <main className="container"><p style={{ textAlign: 'center' }}>Yükleniyor...</p></main>
     }
 
     return (
-        <main className="main-content">
+        <main className="container">
+
+            <div className="profile-card">
+                <img src="/profile-pic.jpg" alt="Profil Fotoğrafı" className="profile-img" />
+                <h2>Hakkımda</h2>
+                <p>Ben Melisa Melda Köse, 2311216005 numaralı, 2. sınıf İngilizce Öğretmenliği öğrencisiyim. Bu site, Öğretim Teknolojileri ve Materyal Tasarımı dersi kapsamında hazırladığım ödev ve öğretim materyallerini paylaşmak amacıyla oluşturulmuştur.</p>
+            </div>
+
+            <h2 className="section-title">My Works (Çalışmalarım)</h2>
+
             {posts.length === 0 ? (
                 <div className="empty-state">
                     <p>Henüz içerik eklenmemiş.</p>
                 </div>
             ) : (
-                <div className="posts-grid">
+                <div className="works-grid">
                     {posts.map((post) => (
-                        <article key={post.id} className="post-card">
+                        <div key={post.id} className="work-card">
 
                             <div
-                                className={`post-media ${post.media_type === 'image' ? 'clickable-media' : ''}`}
+                                className={`work-media ${post.media_type === 'image' ? 'clickable-media' : ''}`}
                                 onClick={() => post.media_type === 'image' && setSelectedMedia(post.media_url)}
                             >
                                 {post.media_type === 'video' ? (
-                                    <video src={post.media_url} controls playsInline />
+                                    <video src={post.media_url} controls playsInline className="work-img" />
                                 ) : (
-                                    <img src={post.media_url} alt={post.title} loading="lazy" />
+                                    <img src={post.media_url} alt={post.title} loading="lazy" className="work-img" />
                                 )}
                             </div>
 
-                            <div className="post-content">
+                            <div className="work-info">
+                                <span className="work-date">
+                                    {formatDate(post.created_at)}
+                                </span>
                                 <h3>{post.title}</h3>
                                 {post.description && <p>{post.description}</p>}
 
                                 <div className="post-footer">
-                                    <span className="post-date">
-                                        {formatDate(post.created_at)}
-                                    </span>
-
                                     {isLoggedIn && (
                                         <button
                                             onClick={() => handleDelete(post.id, post.media_url)}
@@ -125,7 +132,7 @@ export default function Home() {
                                 </div>
                             </div>
 
-                        </article>
+                        </div>
                     ))}
                 </div>
             )}

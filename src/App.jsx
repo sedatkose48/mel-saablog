@@ -6,6 +6,8 @@ import Header from './components/Header'
 import Home from './pages/Home'
 import Login from './pages/Login'
 import Upload from './pages/Upload'
+import BackgroundFx from './components/BackgroundFx'
+import Footer from './components/Footer'
 import './App.css'
 
 function App() {
@@ -27,6 +29,7 @@ function App() {
 
   return (
     <Router>
+      <BackgroundFx />
       <div className="app-container">
         <Header user={session?.user} />
 
@@ -35,6 +38,8 @@ function App() {
           <Route path="/login" element={session ? <Navigate to="/" /> : <Login />} />
           <Route path="/upload" element={session ? <Upload user={session.user} /> : <Navigate to="/login" />} />
         </Routes>
+
+        <Footer />
       </div>
     </Router>
   )

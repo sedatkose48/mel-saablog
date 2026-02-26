@@ -5,36 +5,30 @@ import { supabase } from '../lib/supabase'
 export default function Header({ user }) {
     const handleLogout = async () => {
         await supabase.auth.signOut()
-        // Sayfayı yenileyerek Auth state'i sıfırlama (basit yaklaşım)
         window.location.reload()
     }
 
     return (
-        <header className="header">
-            <div className="header-content">
-                <Link to="/" style={{ textDecoration: 'none' }}>
-                    <div className="logo-area">
-                        <h1>Melisa'nın Çalışmaları</h1>
-                        <p className="subtitle">Portfolyo & Blog</p>
-                    </div>
-                </Link>
+        <header>
+            <Link to="/" style={{ textDecoration: 'none' }}>
+                <div className="logo">chocoMel</div>
+            </Link>
 
-                <div className="actions">
-                    {user ? (
-                        <>
-                            <Link to="/upload" className="btn primary-btn" style={{ textDecoration: 'none' }}>
-                                <PlusCircle size={18} /> Yeni Ekle
-                            </Link>
-                            <button className="btn secondary-btn" onClick={handleLogout}>
-                                <LogOut size={18} /> Çıkış
-                            </button>
-                        </>
-                    ) : (
-                        <Link to="/login" className="btn secondary-btn" style={{ textDecoration: 'none' }}>
-                            <LogIn size={18} /> Giriş Yap
+            <div className="actions" style={{ display: 'flex', gap: '10px' }}>
+                {user ? (
+                    <>
+                        <Link to="/upload" className="login-btn" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '5px' }}>
+                            <PlusCircle size={18} /> Yeni Ekle
                         </Link>
-                    )}
-                </div>
+                        <button className="login-btn" onClick={handleLogout} style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+                            <LogOut size={18} /> Çıkış
+                        </button>
+                    </>
+                ) : (
+                    <Link to="/login" className="login-btn" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '5px' }}>
+                        <LogIn size={18} /> Giriş Yap
+                    </Link>
+                )}
             </div>
         </header>
     )
