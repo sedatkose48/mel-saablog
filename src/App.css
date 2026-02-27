@@ -585,11 +585,8 @@ footer {
   .st-login-wrapper {
     padding: 1rem;
     align-items: center;
-    /* Center vertically better on mobile */
     margin-top: 30px;
     width: 100%;
-    overflow: hidden;
-    /* Prevent any horizontal layout breaking */
   }
 
   .st-login-card {
@@ -597,8 +594,6 @@ footer {
     border-radius: 20px;
     width: 100%;
     margin: 0 auto;
-    /* Prevent the slide-in animation from expanding the viewport */
-    overflow-x: hidden;
   }
 
   .st-login-avatar {
