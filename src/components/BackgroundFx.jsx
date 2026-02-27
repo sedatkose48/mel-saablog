@@ -7,7 +7,7 @@ export default function BackgroundFx() {
         const bg = bgRef.current;
         if (!bg) return;
 
-        // Clear previous children to avoid duplicates on strict mode
+        // Her seferinde temizle
         bg.innerHTML = '';
 
         const count = 50;
@@ -21,6 +21,7 @@ export default function BackgroundFx() {
             star.style.left = Math.random() * 100 + 'vw';
             star.style.top = Math.random() * 100 + 'vh';
             star.style.transform = `rotate(${Math.random() * 360}deg)`;
+            star.style.position = 'absolute';
             bg.appendChild(star);
 
             // Simler/Parıltılar
@@ -32,9 +33,10 @@ export default function BackgroundFx() {
             glitter.style.left = Math.random() * 100 + 'vw';
             glitter.style.top = Math.random() * 100 + 'vh';
             glitter.style.animationDelay = Math.random() * 2 + 's';
+            glitter.style.position = 'absolute';
             bg.appendChild(glitter);
         }
     }, []);
 
-    return <div className="background-fx" id="bg-fx" ref={bgRef}></div>;
+    return <div className="background-fx" id="bg-fx" ref={bgRef} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0, pointerEvents: 'none', overflow: 'hidden' }}></div>;
 }
